@@ -49,6 +49,7 @@ async def lifespan(app: FastAPI):
         except Exception:
             if attempt == max_attempts:
                 raise
+            logger.warning("Base indisponible (tentative %s/%s)", attempt, max_attempts)
             time.sleep(2)
     yield
 
