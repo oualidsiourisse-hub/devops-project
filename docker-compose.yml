@@ -1,0 +1,28 @@
+services:
+  api:
+    build:
+      context: ./app
+    container_name: python-api
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_HOST=db
+      - DATABASE_PORT=5432
+      - POSTGRES_USER=mon_user
+      - POSTGRES_PASSWORD=mon_mot_de_passe
+      - POSTGRES_DB=ma_base
+    depends_on:
+      - db
+
+  db:
+    image: postgres:16
+    container_name: postgres-db
+    environment:
+      POSTGRES_USER: mon_user
+      POSTGRES_PASSWORD: mon_mot_de_passe
+      POSTGRES_DB: ma_base
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:
