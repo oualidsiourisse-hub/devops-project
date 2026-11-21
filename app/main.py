@@ -43,7 +43,7 @@ async def lifespan(app: FastAPI):
     max_attempts = 10
     for attempt in range(1, max_attempts + 1):
         try:
-            #init_db()
+            init_db()
             break
         except Exception as exc:
             logger.warning(

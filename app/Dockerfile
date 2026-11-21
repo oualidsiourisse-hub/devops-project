@@ -1,5 +1,5 @@
 # Utilise une image officielle Python légère basée sur Debian (slim)
-FROM python:3.12-slim
+FROM python:3.13-slim
 
 # Évite la création des fichiers .pyc et affiche les logs en temps réel
 ENV PYTHONDONTWRITEBYTECODE=1 \
@@ -12,7 +12,7 @@ WORKDIR /app
 COPY requirements.txt .
 RUN pip install --no-cache-dir --upgrade pip \
     && pip install --no-cache-dir -r requirements.txt
-
+    
 # Copie le code source du projet
 COPY . .
 
