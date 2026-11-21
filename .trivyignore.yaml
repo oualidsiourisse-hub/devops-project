@@ -1,0 +1,8 @@
+vulnerabilities:
+  - id: CVE-2025-47273
+    paths:
+      - "usr/local/lib/python3.13/site-packages/pip/_vendor/bom.cdx.json"
+    statement: >
+      Faux positif : SBOM de pip qui liste pkg_resources vendorisé issu de
+      setuptools 70.3.0. Le paquet setuptools installé est 84.2.1 (pip list).
+      La faille concerne PackageIndex, absent de cette copie. Décision du 2026-11-21.
