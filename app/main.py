@@ -1,9 +1,10 @@
-from contextlib import asynccontextmanager, closing
-import os
-import time
+import asyncio
 import logging
-from fastapi import FastAPI, HTTPException
+import os
+from contextlib import asynccontextmanager, closing
+
 import psycopg2
+from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 
 logger = logging.getLogger(__name__)
@@ -33,10 +34,8 @@ def init_db():
         done BOOLEAN NOT NULL DEFAULT FALSE
     );
     """
-    with closing(get_db_connection()) as conn:
-        with conn:
-            with conn.cursor() as cur:
-                cur.execute(create_table_sql)
+    with closing(get_db_connection()) as conn, conn, conn.cursor() as cur:
+        cur.execute(create_table_sql)
 
 
 @asynccontextmanager
@@ -44,7 +43,7 @@ async def lifespan(app: FastAPI):
     max_attempts = 10
     for attempt in range(1, max_attempts + 1):
         try:
-            init_db()
+            #init_db()
             break
         except Exception as exc:
             logger.warning(
@@ -56,7 +55,7 @@ async def lifespan(app: FastAPI):
             if attempt == max_attempts:
                 raise
             logger.warning("Base indisponible (tentative %s/%s)", attempt, max_attempts)
-            time.sleep(2)
+            await asyncio.sleep(2)
     yield
 
 
@@ -77,11 +76,9 @@ def create_task(task: TaskCreate):
     RETURNING id, title, done;
     """
     try:
-        with closing(get_db_connection()) as conn:
-            with conn:
-                with conn.cursor() as cur:
-                    cur.execute(insert_sql, (task.title,))
-                    row = cur.fetchone()
+        with closing(get_db_connection()) as conn, conn, conn.cursor() as cur:
+            cur.execute(insert_sql, (task.title,))
+            row = cur.fetchone()
         return {
             "id": row[0],
             "title": row[1],
@@ -103,11 +100,9 @@ def list_tasks():
     ORDER BY id ASC;
     """
     try:
-        with closing(get_db_connection()) as conn:
-            with conn:
-                with conn.cursor() as cur:
-                    cur.execute(select_sql)
-                    rows = cur.fetchall()
+        with closing(get_db_connection()) as conn, conn, conn.cursor() as cur:
+            cur.execute(select_sql)
+            rows = cur.fetchall()
         return [
             {
                 "id": row[0],
