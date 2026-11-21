@@ -14,8 +14,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends zlib1g && rm -r
 # Copie et installe les dépendances Python avant le reste du code (optimise le cache Docker)
 COPY requirements.txt .
 RUN pip install --no-cache-dir --upgrade pip \
-    && pip install --no-cache-dir -r requirements.txt \
-    && pip uninstall -y setuptools
+    && pip install --no-cache-dir -r requirements.txt
     
 # Copie le code source du projet
 COPY . .
