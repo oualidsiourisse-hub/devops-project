@@ -17,6 +17,7 @@ services:
   db:
     image: postgres:16
     container_name: postgres-db
+    restart: on-failure
     environment:
       POSTGRES_USER: mon_user
       POSTGRES_PASSWORD: mon_mot_de_passe
