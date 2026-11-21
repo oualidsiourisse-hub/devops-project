@@ -46,7 +46,13 @@ async def lifespan(app: FastAPI):
         try:
             init_db()
             break
-        except Exception:
+        except Exception as exc:
+            logger.warning(
+                "Échec de l'initialisation de la base de données (tentative %d/%d) : %s",
+                attempt,
+                max_attempts,
+                exc,
+            )
             if attempt == max_attempts:
                 raise
             logger.warning("Base indisponible (tentative %s/%s)", attempt, max_attempts)
