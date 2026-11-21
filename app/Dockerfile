@@ -1,5 +1,5 @@
 # Utilise une image officielle Python légère basée sur Debian (slim)
-FROM python:3.12-slimm
+FROM python:3.12-slim
 
 # Évite la création des fichiers .pyc et affiche les logs en temps réel
 ENV PYTHONDONTWRITEBYTECODE=1 \
