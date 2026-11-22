@@ -5,3 +5,5 @@ trivy.json
 .terraform/
 *.tfstate
 *.tfstate.*
+infra/devops-local-config
+*-config
