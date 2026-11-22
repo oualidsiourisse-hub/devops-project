@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+.venv/
+trivy.json
+.terraform/
+*.tfstate
+*.tfstate.*
