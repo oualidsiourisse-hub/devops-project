@@ -6,4 +6,5 @@ trivy.json
 *.tfstate
 *.tfstate.*
 infra/devops-local-config
-*-config
+.ruff_cache/
+.pytest_cache/
