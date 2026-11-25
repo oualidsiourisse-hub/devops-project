@@ -24,6 +24,11 @@ resource "kind_cluster" "default" {
         container_port = 30080
         host_port      = 8080
       }
+
+      extra_port_mappings {
+        container_port = 30090
+        host_port      = 9090
+      }
     }
   }
 }
