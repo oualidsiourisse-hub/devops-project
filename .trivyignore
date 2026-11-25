@@ -1,1 +1,4 @@
+# Faux positif : le SBOM de pip (pip/_vendor/bom.cdx.json) liste setuptools 70.3.0
+# comme dépendance vendorisée. Le setuptools installé est 84.2.1 (pip list).
+# Décision du 2026-11-21, à réexaminer quand pip met à jour son SBOM.
 CVE-2025-47273
