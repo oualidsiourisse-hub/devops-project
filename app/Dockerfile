@@ -8,8 +8,12 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
 # Définit le répertoire de travail dans le conteneur
 WORKDIR /app
 
+RUN apt-get update \
+    && apt-get upgrade -y \
+    && rm -rf /var/lib/apt/lists/*
+
 # Met à jour zlib (CVE corrigée par Trivy).
-RUN apt-get update && apt-get install -y --no-install-recommends zlib1g && rm -rf /var/lib/apt/lists/*
+#RUN apt-get install -y --no-install-recommends zlib1g && rm -rf /var/lib/apt/lists/*
 
 # Copie et installe les dépendances Python avant le reste du code (optimise le cache Docker)
 COPY requirements.txt .
