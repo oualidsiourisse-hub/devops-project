@@ -62,10 +62,13 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Build Docker image
+        run: docker build -t ghcr.io/oualidsiourisse-hub/devops-project:${{ github.sha }} ./app
+
       - name: Scan image with Trivy
         uses: aquasecurity/trivy-action@v0.36.0
         with:
-          image-ref: "mon-projet-python"
+          image-ref: "ghcr.io/oualidsiourisse-hub/devops-project:${{ github.sha }}"
           severity: "HIGH,CRITICAL"
           exit-code: "1"
           ignore-unfixed: true
