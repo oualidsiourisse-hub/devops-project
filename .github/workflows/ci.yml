@@ -46,12 +46,21 @@ jobs:
     needs: [test, secrets]
     runs-on: ubuntu-latest
 
+    permissions:
+      contents: read
+      packages: write
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v6
 
-      - name: Build Docker image
-        run: docker build -t mon-projet-python ./app
+      - name: Login to GitHub Container Registry
+        if: github.ref == 'refs/heads/main'
+        uses: docker/login-action@v6
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Scan image with Trivy
         uses: aquasecurity/trivy-action@v0.36.0
@@ -62,3 +71,7 @@ jobs:
           ignore-unfixed: true
           format: table
           trivyignores: .trivyignore
+
+      - name: Push Docker image to GHCR
+        if: github.ref == 'refs/heads/main'
+        run: docker push ghcr.io/oualidsiourisse-hub/devops-project:${{ github.sha }}
