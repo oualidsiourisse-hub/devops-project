@@ -1,18 +1,17 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: devops-project
+  name: devops-prod
   namespace: argocd
 spec:
   project: default
   source:
     repoURL: https://github.com/oualidsiourisse-hub/devops-project.git
     targetRevision: main
-    path: gitops
+    path: gitops/overlays/prod
   destination:
     server: https://kubernetes.default.svc
-    namespace: default
+    namespace: prod
   syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
