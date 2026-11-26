@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: api
-          image: ghcr.io/oualidsiourisse-hub/devops-project:<sha-complet>
+          image: ghcr.io/oualidsiourisse-hub/devops-project:794c4f2773c9f4cbad4f97d27a747d3b2e2adc7a
           ports:
             - containerPort: 8000
           envFrom:
