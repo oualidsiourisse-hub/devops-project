@@ -1,14 +1,4 @@
 apiVersion: v1
-kind: Secret
-metadata:
-  name: db-credentials
-type: Opaque
-stringData:
-  POSTGRES_USER: postgres
-  POSTGRES_PASSWORD: changeme
-  POSTGRES_DB: tasks_db
----
-apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: db-data
