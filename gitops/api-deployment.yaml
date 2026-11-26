@@ -14,8 +14,7 @@ spec:
     spec:
       containers:
         - name: api
-          image: monapp:1.0
-          imagePullPolicy: IfNotPresent
+          image: ghcr.io/oualidsiourisse-hub/devops-project:<sha-complet>
           ports:
             - containerPort: 8000
           envFrom:
